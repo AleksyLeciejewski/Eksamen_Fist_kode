@@ -16,43 +16,40 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 //addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
-    public void addItem(Item item) {
-        String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+public void addItem(Item item) {
+    String sql = "INSERT INTO Inventory (name, MaxStack, weight, isStackable) VALUES (?, ?, ?, ?)";
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            // Indsætter værdier i placeholders i SQL-sætningen.
-            preparedStatement.setString(1, item.getName());
-            preparedStatement.setInt(2, item.getItemID());
-            preparedStatement.setInt(3, item.getMaxStack());
-            preparedStatement.setDouble(4, item.getWeight());
-            preparedStatement.setBoolean(5, item.isStackable());
+        // Indsætter værdier i placeholders i SQL-sætningen.
+        preparedStatement.setString(1, item.getName());
+        preparedStatement.setInt(2, item.getMaxStack());
+        preparedStatement.setDouble(3, item.getWeight());
+        preparedStatement.setBoolean(4, item.isStackable());
 
-            int rowsInserted = preparedStatement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
-            }
-        } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
-            e.printStackTrace();
+        int rowsInserted = preparedStatement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("En ny item er nu tilføjet til dit inventory!");
         }
+    } catch (SQLException e) {
+        // Håndterer SQL-relaterede fejl.
+        e.printStackTrace();
     }
+}
     public void addWeapon(Weapon weapon) {
-        String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Weapons (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             // Indsætter værdier i placeholders i SQL-sætningen.
             preparedStatement.setString(1, weapon.getName());
-            preparedStatement.setInt(2, weapon.getItemID());
-            preparedStatement.setInt(3, weapon.getMaxStack());
-            preparedStatement.setDouble(4, weapon.getWeight());
-            preparedStatement.setBoolean(5, weapon.isStackable());
-            preparedStatement.setDouble(6, weapon.getDamage());
+            preparedStatement.setInt(2, weapon.getMaxStack());
+            preparedStatement.setDouble(3, weapon.getWeight());
+            preparedStatement.setDouble(4, weapon.getDamage());
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
+                System.out.println("En ny weapon er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -61,12 +58,12 @@ public class Inventory {
     }
 
 
-        }
-    }
+        
+    
 
     public void removeItem(Item item) {
         //Remove item, database logik
-        String sql "DELETE FROM InventoryRepository WHERE name = ?";
+        String sql = "DELETE FROM InventoryRepository WHERE name = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -78,7 +75,7 @@ public class Inventory {
             } else {
                 System.out.println("Ingen genstand(e) fundet med dette navn");
             }
-        }$ catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Fejl ved sletning af genstand(e)");
 
@@ -88,9 +85,26 @@ public class Inventory {
     }
 
 
-    public void showInventory(){
-        //show items in inventory
+    public void showInventory() {
+        String sql = "SELECT name, maxStack, weight, isStackable FROM Inventory";
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                int maxStack = resultSet.getInt("maxStack");
+                double weight = resultSet.getDouble("weight");
+                boolean isStackable = resultSet.getBoolean("isStackable");
+
+                System.out.printf("Item: %s, Max Stack: %d, Weight: %.2f, Is Stackable: %b%n", name, maxStack, weight, isStackable);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Fejl ved visning af inventory");
+        }
     }
 
     public double calcTotalWeight(){
