@@ -61,12 +61,11 @@ public class Inventory {
     }
 
 
-        }
-    }
+
 
     public void removeItem(Item item) {
         //Remove item, database logik
-        String sql "DELETE FROM InventoryRepository WHERE name = ?";
+        String sql = "DELETE FROM InventoryRepository WHERE name = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -78,7 +77,7 @@ public class Inventory {
             } else {
                 System.out.println("Ingen genstand(e) fundet med dette navn");
             }
-        }$ catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Fejl ved sletning af genstand(e)");
 
