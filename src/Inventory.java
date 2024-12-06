@@ -56,7 +56,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
+                System.out.println("Et nyt våben er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -78,7 +78,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
+                System.out.println("En ny rustning er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -101,7 +101,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
+                System.out.println("En ny consumable er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -157,7 +157,6 @@ public class Inventory {
 
         System.out.println("Du har nu udvidet din inventory med " + moreSlots + "pladser");
         System.out.println("Din nuværende kapacitet er nu opgraderet til: " + maxSlots + "!");
-        System.out.println("Dit inventory er fyldt! Slet eller sælg items for at frigøre plads");
 
     return maxSlots;
     }
