@@ -2,11 +2,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Inventory {
-
+    Scanner brugerInput = new Scanner(System.in);
     private int availableSlots;
-    private int maxSlots;
+    private int maxSlots = 32;
     private double totalWeight;
     private ArrayList<Item> inventoryList;
 
@@ -15,41 +16,45 @@ public class Inventory {
     this.availableSlots = maxSlots;
     this.inventoryList = new ArrayList<>();
     }
+
 //addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
-public void addItem(Item item) {
-    String sql = "INSERT INTO Inventory (name, MaxStack, weight, isStackable) VALUES (?, ?, ?, ?)";
-    try (Connection connection = DatabaseConnection.getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    public void addItem(Item item) {
+        String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-        // Indsætter værdier i placeholders i SQL-sætningen.
-        preparedStatement.setString(1, item.getName());
-        preparedStatement.setInt(2, item.getMaxStack());
-        preparedStatement.setDouble(3, item.getWeight());
-        preparedStatement.setBoolean(4, item.isStackable());
+            // Indsætter værdier i placeholders i SQL-sætningen.
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setInt(2, item.getItemID());
+            preparedStatement.setInt(3, item.getMaxStack());
+            preparedStatement.setDouble(4, item.getWeight());
+            preparedStatement.setBoolean(5, item.isStackable());
 
-        int rowsInserted = preparedStatement.executeUpdate();
-        if (rowsInserted > 0) {
-            System.out.println("En ny item er nu tilføjet til dit inventory!");
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("En ny item er nu tilføjet til dit inventory!");
+            }
+        } catch (SQLException e) {
+            // Håndterer SQL-relaterede fejl.
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        // Håndterer SQL-relaterede fejl.
-        e.printStackTrace();
     }
-}
     public void addWeapon(Weapon weapon) {
-        String sql = "INSERT INTO Weapons (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             // Indsætter værdier i placeholders i SQL-sætningen.
             preparedStatement.setString(1, weapon.getName());
-            preparedStatement.setInt(2, weapon.getMaxStack());
-            preparedStatement.setDouble(3, weapon.getWeight());
-            preparedStatement.setDouble(4, weapon.getDamage());
+            preparedStatement.setInt(2, weapon.getItemID());
+            preparedStatement.setInt(3, weapon.getMaxStack());
+            preparedStatement.setDouble(4, weapon.getWeight());
+            preparedStatement.setBoolean(5, weapon.isStackable());
+            preparedStatement.setDouble(6, weapon.getDamage());
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny weapon er nu tilføjet til dit inventory!");
+                System.out.println("En ny item er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -57,9 +62,21 @@ public void addItem(Item item) {
         }
     }
 
+    public void addConsumable(Consumable consumable) throws SQLException {
+        String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-        
-    
+            // Indsætter værdier i placeholders i SQL-sætningen.
+            preparedStatement.setString(1, consumable.getName());
+            preparedStatement.setInt(2, consumable.getMaxStack());
+            preparedStatement.setDouble(3, consumable.getWeight());
+            preparedStatement.setBoolean(4, consumable.isStackable());
+            preparedStatement.setDouble(5, consumable.getDuration());
+            preparedStatement.setString(6, consumable.getEffect());
+
+        }
+    }
 
     public void removeItem(Item item) {
         //Remove item, database logik
@@ -109,12 +126,47 @@ public void addItem(Item item) {
 
     public double calcTotalWeight(){
 
+
     return totalWeight;
     }
+/*
+    public int addSlots(int moreSlots){
+
+    if(moreSlots <= 0){
+            System.out.println("Du kan ikke tilføje 0 slots");
+    return maxSlots;
+    }
+
+    this.maxSlots += moreSlots;
+
+        System.out.println("Du har nu udvidet din inventory med " + moreSlots + "pladser");
+        System.out.println("Din nuværende kapacitet er nu opgraderet til: " + maxSlots + "!");
+        System.out.println("Dit inventory er fyldt! Slet eller sælg items for at frigøre plads");
+
+    return maxSlots;
+    }
+
+ */
 
     public int addSlots(){
 
-    return maxSlots;}
+        System.out.println("Du har nu valgt at tilføje items til dit inventory");
+        System.out.println("Angiv, hvor mange slots du vil tilføje: ");
 
+    int moreSlots = brugerInput.nextInt();
+
+        if(moreSlots <= 0){
+            System.out.println("Du kan ikke tilføje 0 slots");
+        return maxSlots;
+        }
+
+    this.maxSlots += moreSlots;
+
+        System.out.println("Du har nu udvidet din inventory med " + moreSlots + "pladser");
+        System.out.println("Din nye kapacitet er nu opgraderet til: " + maxSlots + "!");
+
+    return maxSlots;
+    }
 
 }
+
