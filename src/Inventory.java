@@ -78,7 +78,7 @@ public class Inventory {
             } else {
                 System.out.println("Ingen genstand(e) fundet med dette navn");
             }
-        }$ catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Fejl ved sletning af genstand(e)");
 
