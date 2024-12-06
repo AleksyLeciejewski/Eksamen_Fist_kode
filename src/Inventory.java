@@ -167,6 +167,5 @@ public class Inventory {
 
     return maxSlots;
     }
-
 }
 
