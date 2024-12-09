@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 public abstract class Item {
 
-   /* public Item(){
-    }
-    */
 
   public Item(String name,int itemID,double weight,boolean isStackable,int maxStack){
     this.itemID = itemID;
@@ -67,8 +64,8 @@ public abstract class Item {
 
 
     public String toString() {
-        return String.format("name: %s, maxStack: %d, weight: %d, isStackable: %",
-                name, weight, isStackable, maxStack);
+        return String.format("name: %s, maxStack: %d, weight: %d, isStackable: %b ",
+                name, maxStack, weight, isStackable);
     }
 
     }

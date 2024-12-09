@@ -62,7 +62,7 @@ public class Inventory {
         }
     }
 
-    public void addConsumable(Consumable consumable) throws SQLException {
+    public void addConsumable(Consumable consumable) {
         String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
