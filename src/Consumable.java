@@ -25,4 +25,8 @@ public class Consumable extends Item {
         this.effect = effect;
     }
 
+    @Override
+    public boolean isStackable() {
+        return true;
+    }
 }

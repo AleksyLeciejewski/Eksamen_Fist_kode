@@ -44,7 +44,7 @@ public abstract class Item {
     }
 
     public boolean isStackable() {
-        return isStackable;
+        return false;
     }
 
     public void setStackable(boolean stackable) {
