@@ -46,14 +46,15 @@ public class Inventory {
 
             // Indsætter værdier i placeholders i SQL-sætningen.
             preparedStatement.setString(1, weapon.getName());
-            preparedStatement.setInt(2, weapon.getMaxStack());
-            preparedStatement.setDouble(3, weapon.getWeight());
-            preparedStatement.setBoolean(4, weapon.isStackable());
-            preparedStatement.setDouble(5, weapon.getDamage());
+            preparedStatement.setInt(2, weapon.getItemID());
+            preparedStatement.setInt(3, weapon.getMaxStack());
+            preparedStatement.setDouble(4, weapon.getWeight());
+            preparedStatement.setBoolean(5, weapon.isStackable());
+            preparedStatement.setDouble(6, weapon.getDamage());
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Et nyt våben er nu tilføjet til dit inventory!");
+                System.out.println("En ny item er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -61,29 +62,7 @@ public class Inventory {
         }
     }
 
-    public void addArmor(Armor armor) {
-        String sql = "INSERT INTO  (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            // Indsætter værdier i placeholders i SQL-sætningen.
-            preparedStatement.setString(1, armor.getName());
-            preparedStatement.setInt(2, armor.getMaxStack());
-            preparedStatement.setDouble(3, armor.getWeight());
-            preparedStatement.setBoolean(4, armor.isStackable());
-            preparedStatement.setDouble(5, armor.getDefense());
-
-            int rowsInserted = preparedStatement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("En ny rustning er nu tilføjet til dit inventory!");
-            }
-        } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
-            e.printStackTrace();
-        }
-    }
-
-    public void addConsumable(Consumable consumable) throws SQLException {
+    public void addConsumable(Consumable consumable) {
         String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -96,13 +75,6 @@ public class Inventory {
             preparedStatement.setDouble(5, consumable.getDuration());
             preparedStatement.setString(6, consumable.getEffect());
 
-            int rowsInserted = preparedStatement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("En ny consumable er nu tilføjet til dit inventory!");
-            }
-        } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
-            e.printStackTrace();
         }
     }
 
@@ -195,4 +167,6 @@ public class Inventory {
 
     return maxSlots;
     }
+
 }
+
