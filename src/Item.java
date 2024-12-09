@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public abstract class Item {
 
-
   public Item(String name,int itemID,double weight,boolean isStackable,int maxStack){
     this.itemID = itemID;
     this.isStackable = isStackable;
@@ -44,7 +43,7 @@ public abstract class Item {
     }
 
     public boolean isStackable() {
-        return isStackable;
+        return false;
     }
 
     public void setStackable(boolean stackable) {
@@ -64,7 +63,7 @@ public abstract class Item {
 
 
     public String toString() {
-        return String.format("name: %s, maxStack: %d, weight: %d, isStackable: %b ",
+        return String.format("name: %s, maxStack: %d, weight: %d, isStackable: %b",
                 name, maxStack, weight, isStackable);
     }
 
