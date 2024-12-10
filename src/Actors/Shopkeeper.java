@@ -1,3 +1,5 @@
+package Actors;
+
 public class Shopkeeper {
 
     private String shopKeeperId;
@@ -22,7 +24,7 @@ public class Shopkeeper {
     }
     @Override
     public String toString(){
-        return "Shopkeeper " +  shopKeeperId + "Shopkeepers Gold " + goldBalance;
+        return "Actors.Shopkeeper " +  shopKeeperId + "Shopkeepers Gold " + goldBalance;
     }
 
 }

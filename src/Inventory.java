@@ -1,3 +1,9 @@
+import Database.DatabaseConnection;
+import Items.Armor;
+import Items.Consumable;
+import Items.Item;
+import Items.Weapon;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -143,7 +149,7 @@ public class Inventory {
                 double weight = resultSet.getDouble("weight");
                 boolean isStackable = resultSet.getBoolean("isStackable");
 
-                System.out.printf("Item: %s, Max Stack: %d, Weight: %.2f, Is Stackable: %b%n", name, maxStack, weight, isStackable);
+                System.out.printf("Items.Item: %s, Max Stack: %d, Weight: %.2f, Is Stackable: %b%n", name, maxStack, weight, isStackable);
             }
 
         } catch (SQLException e) {

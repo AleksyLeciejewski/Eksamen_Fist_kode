@@ -1,4 +1,6 @@
-public class Potion extends Consumable{
+package Items;
+
+public class Potion extends Consumable {
     public Potion(String name, int itemID, double weight, boolean isStackable, int maxStack, String effect, int duration) {
         super(name, itemID, weight, isStackable, maxStack, effect, duration);
     }
@@ -13,7 +15,7 @@ public class Potion extends Consumable{
     }
 
     public static Potion createHealthPotion(String name, int itemID, int duration){
-        return new Potion("Healing Potion", itemID, 0.5, true, 4, "Healing", 5);
+        return new Potion("Healing Items.Potion", itemID, 0.5, true, 4, "Healing", 5);
     }
 
 }
