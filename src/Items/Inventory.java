@@ -159,7 +159,6 @@ public class Inventory {
         }
     }
 
-
     public void showInventory() {
         String sql = "SELECT name, maxStack, weight, isStackable FROM Inventory";
 
