@@ -1,4 +1,6 @@
-public class Arrow extends Consumable{
+package Items;
+
+public class Arrow extends Consumable {
     public Arrow(String name, int itemID, double weight, boolean isStackable, int maxStack, String effect, int duration) {
         super(name, itemID, weight, isStackable, maxStack, effect, duration);
     }

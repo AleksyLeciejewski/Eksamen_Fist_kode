@@ -1,3 +1,5 @@
+package Actors;
+
 public class PlayerID {
     private int playerID;
     private String characterName;

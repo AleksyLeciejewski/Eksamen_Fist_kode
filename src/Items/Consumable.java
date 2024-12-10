@@ -1,4 +1,6 @@
-public class Consumable extends Item {
+package Items;
+
+public class Consumable extends Item implements Reforge {
 
     public Consumable(String name,int itemID,double weight,boolean isStackable,int maxStack, String effect, int duration){
         super(name, itemID, weight, isStackable, maxStack);
@@ -25,4 +27,18 @@ public class Consumable extends Item {
         this.effect = effect;
     }
 
+    @Override
+    public boolean isStackable() {
+        return true;
+    }
+
+    @Override
+    public void ReforgeStats() {
+
+    }
+
+    @Override
+    public void ReforgeWeight() {
+
+    }
 }
