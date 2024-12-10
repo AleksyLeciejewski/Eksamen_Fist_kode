@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Inventory {
     Scanner brugerInput = new Scanner(System.in);
@@ -113,27 +115,48 @@ public class Inventory {
         }
     }
 
-    public void removeItem(Item item) {
-        //Remove item, database logik
-        String sql = "DELETE FROM InventoryRepository WHERE name = ?";
+    public void removeItemBySlot(int slot) {
+        Logger logger = Logger.getLogger("Inventory logger");
+
+        if (slot < 1 || slot > inventoryList.size()) {
+            System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
+            return;
+        }
+
+        Item itemToRemove = inventoryList.get(slot - 1);
+
+        if (itemToRemove == null) {
+            System.out.println("Slot er tomt. Ingen genstand at fjerne.");
+            return;
+        }
+        String sql = "DELETE FROM Inventory WHERE itemID = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, item.getName());
 
+            preparedStatement.setInt(1, itemToRemove.getItemID());
             int rowsAffected = preparedStatement.executeUpdate();
+
             if (rowsAffected > 0) {
-                System.out.println("Genstand(e) slettet succesfuldt.");
+                System.out.printf("Genstanden(e) er blevet slettet",
+                        itemToRemove.getName(), slot);
+
+                logger.log(Level.INFO, "Genstand slettet fra slot {0}: {1}", new Object[]{slot, itemToRemove.getName()});
+
+
+                inventoryList.remove(slot - 1);
             } else {
-                System.out.println("Ingen genstand(e) fundet med dette navn");
+                System.out.printf("Kunne ikke finde genstanden '%s' i databasen.%n",
+                        itemToRemove.getName());
+                logger.log(Level.WARNING, "Ingen genstand fundet i databasen for slot {0}: {1}",
+                        new Object[]{slot, itemToRemove.getName()});
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Fejl ved sletning af genstand(e)");
-
+            System.err.println("Fejl ved sletning af genstand fra slot " + slot);
+            logger.log(Level.SEVERE, "Databasefejl ved sletning af genstand fra slot {0}: {1}",
+                    new Object[]{slot, e});
         }
-        //Spiller logik for removeItem
-
     }
 
 
