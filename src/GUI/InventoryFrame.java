@@ -1,3 +1,9 @@
+package GUI;
+
+import Items.Inventory;
+import Items.Item;
+import Items.ItemFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,9 +12,9 @@ import java.awt.event.ActionListener;
 public class InventoryFrame extends JFrame {
 
     JButton button1 = new JButton("Add Item");
-    Inventory inventory = new Inventory(32, 0.0); // Create an instance of Inventory
+    Inventory inventory = new Inventory(32, 0.0); // Create an instance of Items.Inventory
 
-    InventoryFrame() {
+    public InventoryFrame() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.gray);
         buttonPanel.setBounds(0, 0, 800, 100);
@@ -22,7 +28,7 @@ public class InventoryFrame extends JFrame {
             }
         });
 
-        this.setTitle("Inventory");
+        this.setTitle("Items.Inventory");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLayout(null);

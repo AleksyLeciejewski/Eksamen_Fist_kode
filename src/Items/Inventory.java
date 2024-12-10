@@ -1,8 +1,7 @@
+package Items;
+
 import Database.DatabaseConnection;
-import Items.Armor;
-import Items.Consumable;
-import Items.Item;
-import Items.Weapon;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
