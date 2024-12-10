@@ -1,4 +1,5 @@
-public class Weapon extends Item {
+import java.sql.Ref;
+public class Weapon extends Item implements Reforge {
 
 
     public Weapon(String name,int itemID,double weight,boolean isStackable,int maxStack, double damage){
@@ -16,7 +17,13 @@ public class Weapon extends Item {
         this.damage = damage;
     }
 
+    @Override
+    public void ReforgeStats() {
 
+    }
 
+    @Override
+    public void ReforgeWeight() {
 
+    }
 }

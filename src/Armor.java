@@ -1,4 +1,4 @@
-public class Armor extends Item {
+public class Armor extends Item implements Reforge {
 
 
     public Armor(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
@@ -15,7 +15,15 @@ public class Armor extends Item {
         this.defense = defense;
     }
 
+    @Override
+    public void ReforgeWeight() {
 
+    }
+
+    @Override
+    public void ReforgeStats() {
+
+    }
 
 
 }

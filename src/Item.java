@@ -43,6 +43,9 @@ public abstract class Item {
     }
 
     public boolean isStackable() {
+        if(isStackable = false){
+            setMaxStack(1);
+        }
         return false;
     }
 

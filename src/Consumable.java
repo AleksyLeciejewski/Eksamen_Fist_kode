@@ -1,4 +1,6 @@
-public class Consumable extends Item {
+import java.sql.Ref;
+
+public class Consumable extends Item implements Reforge {
 
     public Consumable(String name,int itemID,double weight,boolean isStackable,int maxStack, String effect, int duration){
         super(name, itemID, weight, isStackable, maxStack);
@@ -28,5 +30,15 @@ public class Consumable extends Item {
     @Override
     public boolean isStackable() {
         return true;
+    }
+
+    @Override
+    public void ReforgeStats() {
+
+    }
+
+    @Override
+    public void ReforgeWeight() {
+
     }
 }

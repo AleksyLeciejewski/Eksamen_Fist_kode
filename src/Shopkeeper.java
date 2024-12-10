@@ -7,6 +7,7 @@ public class Shopkeeper {
         this.shopKeeperId = shopKeeperId;
         this.goldBalance = goldBalance;
     }
+
     public String getShopKeeperId(){
         return shopKeeperId;
     }
