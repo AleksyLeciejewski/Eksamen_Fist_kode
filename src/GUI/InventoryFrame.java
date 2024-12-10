@@ -35,7 +35,7 @@ public class InventoryFrame extends JFrame {
         removeItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeItem();
+                removeItemBySlot();
             }
         });
         addSlotButton.setBounds(650, 25, 100, 50);
@@ -43,6 +43,7 @@ public class InventoryFrame extends JFrame {
         this.setTitle("Inventory");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900, 600);
+        this.setResizable(false);
         this.setLayout(null);
         this.add(buttonPanel);
 
@@ -58,14 +59,14 @@ public class InventoryFrame extends JFrame {
         inventory.addItem(randomItem);
         System.out.println("Random item added to inventory: " + randomItem.getName());
     }
-//
-//    private void removeItem() {
-//        try {
-//            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Account Number to be deleted:"));
-//            repository.deleteAccounts(accountNumber);
-//            JOptionPane.showMessageDialog(null, "Account has been deleted!");
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid account number.");
-//        }
-//    }
+
+    private void removeItemBySlot() {
+        try {
+            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
+            inventory.removeItemBySlot(accountNumber);
+            JOptionPane.showMessageDialog(null, "Item has been deleted!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot number.");
+        }
+    }
 }
