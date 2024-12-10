@@ -45,6 +45,7 @@ public class Inventory {
         }
     }
     public void addWeapon(Weapon weapon) {
+        addItem(weapon);
         String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -67,6 +68,7 @@ public class Inventory {
     }
 
     public void addArmor(Armor armor) {
+        addItem(armor);
         String sql = "INSERT INTO  (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -89,6 +91,7 @@ public class Inventory {
     }
 
     public void addConsumable(Consumable consumable) throws SQLException {
+        addItem(consumable);
         String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
