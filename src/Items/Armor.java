@@ -19,7 +19,7 @@ public class Armor extends Item implements Reforge {
 
     @Override
     public void ReforgeWeight() {
-
+        System.out.println("You have chosen to reforge the wieght of your item");
     }
 
     @Override
