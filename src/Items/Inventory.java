@@ -116,7 +116,6 @@ public class Inventory {
     }
 
     public void removeItemBySlot(int slot) {
-        Logger logger = Logger.getLogger("Inventory logger");
 
         if (slot < 1 || slot > inventoryList.size()) {
             System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
@@ -124,11 +123,11 @@ public class Inventory {
         }
 
         Item itemToRemove = inventoryList.get(slot - 1);
-
         if (itemToRemove == null) {
             System.out.println("Slot er tomt. Ingen genstand at fjerne.");
             return;
         }
+
         String sql = "DELETE FROM Inventory WHERE itemID = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -138,26 +137,26 @@ public class Inventory {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.printf("Genstanden(e) er blevet slettet",
-                        itemToRemove.getName(), slot);
 
-                logger.log(Level.INFO, "Genstand slettet fra slot {0}: {1}", new Object[]{slot, itemToRemove.getName()});
+                System.out.printf("Genstanden '%s' er blevet slettet fra slot %d.%n",
+                        itemToRemove.getName(), slot);
 
 
                 inventoryList.remove(slot - 1);
             } else {
+
                 System.out.printf("Kunne ikke finde genstanden '%s' i databasen.%n",
                         itemToRemove.getName());
-                logger.log(Level.WARNING, "Ingen genstand fundet i databasen for slot {0}: {1}",
-                        new Object[]{slot, itemToRemove.getName()});
             }
 
         } catch (SQLException e) {
-            System.err.println("Fejl ved sletning af genstand fra slot " + slot);
-            logger.log(Level.SEVERE, "Databasefejl ved sletning af genstand fra slot {0}: {1}",
-                    new Object[]{slot, e});
+
+            System.err.printf("Fejl ved sletning af genstand fra slot %d: %s%n",
+                    slot, e.getMessage());
         }
     }
+
+
 
     public void showInventory() {
         String sql = "SELECT name, maxStack, weight, isStackable FROM Inventory";
