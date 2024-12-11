@@ -21,7 +21,7 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 
-//addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
+//addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
     public void addItem(Item item) {
         String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -43,6 +43,7 @@ public class Inventory {
             e.printStackTrace();
         }
     }
+
     public void addWeapon(Weapon weapon) {
         String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -132,7 +133,6 @@ public class Inventory {
         //Spiller logik for removeItem
 
     }
-
 
     public void showInventory() {
         String sql = "SELECT name, maxStack, weight, isStackable FROM Inventory";

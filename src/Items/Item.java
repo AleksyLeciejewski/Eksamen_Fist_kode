@@ -45,7 +45,7 @@ public abstract class Item {
     }
 
     public boolean isStackable() {
-        if(isStackable = false){
+        if(isStackable == false){
             setMaxStack(1);
         }
         return false;
@@ -68,7 +68,7 @@ public abstract class Item {
 
 
     public String toString() {
-        return String.format("name: %s, maxStack: %d, weight: %d, isStackable: %b",
+        return String.format("name: %s, maxStack: %d, weight: %f, isStackable: %b",
                 name, maxStack, weight, isStackable);
     }
 
