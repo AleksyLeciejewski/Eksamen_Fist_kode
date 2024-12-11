@@ -1,10 +1,10 @@
 package Items;
 
-public class OneHandWeapon implements WeaponType {
+public class OneHandWeapon extends Item implements WeaponType {
     private String name;
 
-    public OneHandWeapon(String name) {
-        this.name = name;
+    public OneHandWeapon(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
+        super(name, itemID, weight, isStackable, maxStack);
     }
 
 

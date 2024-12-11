@@ -1,10 +1,11 @@
 package Items;
 
-public class LegsArmor implements WeaponType {
+public class LegsArmor extends Item implements WeaponType {
     public String name;
 
-    public LegsArmor(String name){
-        this.name = name;
+
+    public LegsArmor(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
+        super(name, itemID, weight, isStackable, maxStack);
     }
 
     @Override

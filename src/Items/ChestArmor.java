@@ -1,10 +1,10 @@
 package Items;
 
-public class ChestArmor implements WeaponType{
+public class ChestArmor extends Item implements WeaponType{
     public String name;
 
-    public ChestArmor(String name){
-        this.name = name;
+    public ChestArmor(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
+        super(name, itemID, weight, isStackable, maxStack);
 
     }
 

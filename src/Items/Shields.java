@@ -1,10 +1,10 @@
 package Items;
 
-public class Shields implements WeaponType {
+public class Shields extends Item implements WeaponType {
     public String name;
 
-    public Shields(String name) {
-        this.name = name;
+    public Shields(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
+        super(name, itemID, weight, isStackable, maxStack);
     }
 
     @Override
