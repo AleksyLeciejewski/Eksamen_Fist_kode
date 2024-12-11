@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.Comparator;
+
+
 
 public class Inventory {
     Scanner brugerInput = new Scanner(System.in);
@@ -23,7 +25,7 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 
-//addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
+//addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
     public void addItem(Item item) {
         String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -110,7 +112,6 @@ public class Inventory {
                 System.out.println("En ny consumable er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
             e.printStackTrace();
         }
     }
@@ -151,11 +152,9 @@ public class Inventory {
 
         } catch (SQLException e) {
 
-            System.err.printf("Fejl ved sletning af genstand fra slot %d: %s%n",
-                    slot, e.getMessage());
+            System.err.printf("Fejl ved sletning af slot %d: %s%n", slot, e.getMessage());
         }
     }
-
 
 
     public void showInventory() {
@@ -179,6 +178,46 @@ public class Inventory {
             System.err.println("Fejl ved visning af inventory");
         }
     }
+
+    public class Quicksort {
+        public static <T> void quicksort(List<T> list, int low, int high, Comparator<T> comparator) {
+            if (low < high) {
+
+                int pivotIndex = partition(list, low, high, comparator);
+
+                quicksort(list, low, pivotIndex - 1, comparator);
+
+                quicksort(list, pivotIndex + 1, high, comparator);
+            }
+        }
+
+        private static <T> int partition(List<T> list, int low, int high, Comparator<T> comparator) {
+            T pivot = list.get(high);
+            int i = low - 1;
+
+            for (int j = low; j < high; j++) {
+                if (comparator.compare(list.get(j), pivot) <= 0) {
+                    i++;
+                    // Byt elementerne
+                    swap(list, i, j);
+                }
+            }
+
+            swap(list, i + 1, high);
+            return i + 1;
+        }
+
+        private static <T> void swap(List<T> list, int i, int j) {
+            T temp = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, temp);
+        }
+    }
+
+    public static void sortInventory(){
+
+    }
+
 
     public double calcTotalWeight(){
         double totalWeight = 0;

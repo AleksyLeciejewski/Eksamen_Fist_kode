@@ -1,5 +1,4 @@
 package GUI;
-
 import Items.Inventory;
 import Items.Item;
 import Items.ItemFactory;
@@ -37,7 +36,10 @@ public class InventoryFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 removeItemBySlot();
             }
+
+
         });
+
         addSlotButton.setBounds(650, 25, 100, 50);
 
         this.setTitle("Inventory");
@@ -59,14 +61,14 @@ public class InventoryFrame extends JFrame {
         inventory.addItem(randomItem);
         System.out.println("Random item added to inventory: " + randomItem.getName());
     }
-
-    private void removeItemBySlot() {
-        try {
-            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
-            inventory.removeItemBySlot(accountNumber);
-            JOptionPane.showMessageDialog(null, "Item has been deleted!");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot number.");
-        }
-    }
+//
+//    private void removeItem() {
+//        try {
+//            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Account Number to be deleted:"));
+//            repository.deleteAccounts(accountNumber);
+//            JOptionPane.showMessageDialog(null, "Account has been deleted!");
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid account number.");
+//        }
+//    }
 }
