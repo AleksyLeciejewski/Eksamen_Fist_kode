@@ -7,8 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Inventory {
     Scanner brugerInput = new Scanner(System.in);
@@ -110,7 +109,6 @@ public class Inventory {
                 System.out.println("En ny consumable er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
             e.printStackTrace();
         }
     }
@@ -151,8 +149,7 @@ public class Inventory {
 
         } catch (SQLException e) {
 
-            System.err.printf("Fejl ved sletning af genstand fra slot %d: %s%n",
-                    slot, e.getMessage());
+            System.err.printf("Fejl ved sletning af slot %d: %s%n", slot, e.getMessage());
         }
     }
 
