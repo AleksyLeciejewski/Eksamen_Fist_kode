@@ -1,14 +1,13 @@
-package Items;
-
 import Database.DatabaseConnection;
-
+import Items.Armor;
+import Items.Consumable;
+import Items.Item;
+import Items.Weapon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Inventory {
     Scanner brugerInput = new Scanner(System.in);
@@ -23,7 +22,7 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 
-//addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
+//addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
     public void addItem(Item item) {
         String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -115,45 +114,27 @@ public class Inventory {
         }
     }
 
-    public void removeItemBySlot(int slot) {
-
-        if (slot < 1 || slot > inventoryList.size()) {
-            System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
-            return;
-        }
-
-        Item itemToRemove = inventoryList.get(slot - 1);
-        if (itemToRemove == null) {
-            System.out.println("Slot er tomt. Ingen genstand at fjerne.");
-            return;
-        }
-
-        String sql = "DELETE FROM Inventory WHERE itemID = ?";
+    public void removeItem(Item item) {
+        //Remove item, database logik
+        String sql = "DELETE FROM InventoryRepository WHERE name = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, item.getName());
 
-            preparedStatement.setInt(1, itemToRemove.getItemID());
             int rowsAffected = preparedStatement.executeUpdate();
-
             if (rowsAffected > 0) {
-
-                System.out.printf("Genstanden '%s' er blevet slettet fra slot %d.%n",
-                        itemToRemove.getName(), slot);
-
-
-                inventoryList.remove(slot - 1);
+                System.out.println("Genstand(e) slettet succesfuldt.");
             } else {
-
-                System.out.printf("Kunne ikke finde genstanden '%s' i databasen.%n",
-                        itemToRemove.getName());
+                System.out.println("Ingen genstand(e) fundet med dette navn");
             }
-
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Fejl ved sletning af genstand(e)");
 
-            System.err.printf("Fejl ved sletning af genstand fra slot %d: %s%n",
-                    slot, e.getMessage());
         }
+        //Spiller logik for removeItem
+
     }
 
 
@@ -180,10 +161,8 @@ public class Inventory {
     }
 
     public double calcTotalWeight(){
-        double totalWeight = 0;
-        for (Item item : inventoryList) {
-            totalWeight += item.getWeight();
-        }
+
+
     return totalWeight;
     }
 /*
