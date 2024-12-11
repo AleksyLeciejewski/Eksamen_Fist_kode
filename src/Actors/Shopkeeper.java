@@ -27,4 +27,22 @@ public class Shopkeeper {
         return "Actors.Shopkeeper " +  shopKeeperId + "Shopkeepers Gold " + goldBalance;
     }
 
+
+    public void addGold (double amount){
+        this.goldBalance += amount;
+
+        if ( amount <= 0){
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        } this.goldBalance += amount;
+        }
+
+        public void removeGold (double amount){
+        if (amount <= 0 || amount > this.goldBalance){
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        } if (amount > this.goldBalance){
+            throw new IllegalArgumentException("Not enough gold in balance");
+            }
+        this.goldBalance -= amount;
+        }
 }
+
