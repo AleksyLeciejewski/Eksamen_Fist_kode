@@ -182,14 +182,8 @@ public class Inventory {
 
     public double calcTotalWeight(){
         double totalWeight = 0;
-        double maxWeight = 50;
         for (Item item : inventoryList) {
             totalWeight += item.getWeight();
-        }
-        if (totalWeight > maxWeight){
-            System.out.println("Your inventory is full! Sell or discard items to free up space.");
-        } else {
-            System.out.println("The total weight of your inventory is: " + totalWeight);
         }
     return totalWeight;
     }
