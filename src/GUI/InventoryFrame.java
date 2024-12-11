@@ -1,5 +1,4 @@
 package GUI;
-
 import Items.Inventory;
 import Items.Item;
 import Items.ItemFactory;
@@ -37,7 +36,10 @@ public class InventoryFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 removeItemBySlot();
             }
+
+
         });
+
         addSlotButton.setBounds(650, 25, 100, 50);
 
         this.setTitle("Inventory");

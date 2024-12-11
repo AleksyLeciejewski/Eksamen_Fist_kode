@@ -34,7 +34,7 @@ public class Weapon extends Item implements Reforge {
                 System.out.println("You have chosen to reforge the damage attribute on your weapon");
                 System.out.println("This transaction will cost you XX gold. Do you want to continue?"); //Lod vær' med at implementere brugerinput prompts for at det kan implementeres i gui
 
-            double newDamage = getDamage() + reforgeSetter.nextDouble() * 14; //Påsætter en begrænsning for værdierne. Her er det mellem 1 og 15
+            double newDamage = getDamage() + reforgeSetter.nextDouble() * 14; //Påsætter en begrænsning for værdierne.
             setDamage(newDamage);
 
             break;
@@ -43,7 +43,7 @@ public class Weapon extends Item implements Reforge {
                 System.out.println("You have chosen to reforge the wieght of your weapon");
                 System.out.println("This transaction will cost you XX gold. Do you want to continue?"); //Lod vær' med at implementere brugerinput prompts for at det kan implementeres i gui
 
-            double newWeight = getWeight() + reforgeSetter.nextDouble() * 5; //Påsætter en begrænsning for værdierne. Her er det mellem 1 og 6
+            double newWeight = getWeight() + reforgeSetter.nextDouble() * 5 + 1; //Påsætter en begrænsning for værdierne.
             setWeight(newWeight);
 
                 System.out.println("Your weapon now weighs: " + newWeight);

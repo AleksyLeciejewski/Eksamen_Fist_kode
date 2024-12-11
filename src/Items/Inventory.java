@@ -25,7 +25,7 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 
-//addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
+//addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
     public void addItem(Item item) {
         String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -155,7 +155,6 @@ public class Inventory {
             System.err.printf("Fejl ved sletning af slot %d: %s%n", slot, e.getMessage());
         }
     }
-
 
 
     public void showInventory() {
