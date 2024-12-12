@@ -6,6 +6,7 @@ public class Weapon extends Item implements Reforge {
 
     Random reforgeSetter = new Random();
 
+
     public Weapon(String name,int itemID,double weight,boolean isStackable,int maxStack, double damage){
         super(name, itemID, weight, isStackable, maxStack);
         this.damage = damage;

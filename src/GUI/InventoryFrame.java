@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class InventoryFrame extends JFrame {
 
-    JButton addItemButton = new JButton("Add Item");
+    JButton shopkeeperButton = new JButton("Shopkeeper");
     JButton removeItemButton = new JButton("Remove Item");
     JButton addSlotButton = new JButton("Add Slot");
     Inventory inventory = new Inventory(32, 0.0); // Create an instance of Items.Inventory
@@ -20,23 +20,23 @@ public class InventoryFrame extends JFrame {
         buttonPanel.setBackground(Color.gray);
         buttonPanel.setBounds(0, 0, 900, 100);
         buttonPanel.setLayout(null);
-        buttonPanel.add(addItemButton);
+        buttonPanel.add(shopkeeperButton);
         buttonPanel.add(removeItemButton);
         buttonPanel.add(addSlotButton);
-        addItemButton.setBounds(150, 25, 100, 50);
-        addItemButton.addActionListener(new ActionListener() {
+        shopkeeperButton.setBounds(150, 25, 100, 50);
+        shopkeeperButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addItem();
+                setVisible(false);
+                new ShopkeeperFrame();
             }
         });
         removeItemButton.setBounds(400, 25, 100, 50);
         removeItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeItemBySlot();
+                removeItem();
             }
-
 
         });
 
@@ -56,19 +56,19 @@ public class InventoryFrame extends JFrame {
     }
 
     // Method to add an item to the inventory
-    private void addItem() {
-        Item randomItem = ItemFactory.getRandomItem(); // Get a random item
-        inventory.addItem(randomItem);
-        System.out.println("Random item added to inventory: " + randomItem.getName());
-    }
+//    private void addItem() {
+//        Item randomItem = ItemFactory.getRandomItem(); // Get a random item
+//        inventory.addItem(randomItem);
+//        System.out.println("Random item added to inventory: " + randomItem.getName());
+//    }
 
-    private void removeItemBySlot() {
+    private void removeItem() {
         try {
-            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
-            inventory.removeItemBySlot(accountNumber);
+            int slot = Integer.parseInt(JOptionPane.showInputDialog("Slot to be deleted:"));
+            Inventory.removeItemBySlot(slot);
             JOptionPane.showMessageDialog(null, "Item has been deleted!");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot number.");
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot.");
         }
     }
 }

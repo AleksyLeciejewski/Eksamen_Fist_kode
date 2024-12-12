@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Comparator;
+
 
 
 public class Inventory {
@@ -14,7 +17,7 @@ public class Inventory {
     private int availableSlots;
     private int maxSlots = 32;
     private double totalWeight;
-    private ArrayList<Item> inventoryList;
+    private static ArrayList<Item> inventoryList;
 
     public Inventory(int maxSlots, double totalWeight){
     this.maxSlots = maxSlots;
@@ -23,7 +26,7 @@ public class Inventory {
     }
 
 //addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
-    public void addItem(Item item) {
+    public static void addItem(Item item) {
         String sql = "INSERT INTO inventorylist (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -120,7 +123,7 @@ public class Inventory {
         }
     }
 
-    public void removeItemBySlot(int slot) {
+    public static void removeItemBySlot(int slot) {
 
         if (slot < 1 || slot > inventoryList.size()) {
             System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
@@ -182,6 +185,46 @@ public class Inventory {
             System.err.println("Fejl ved visning af inventory");
         }
     }
+
+    public class Quicksort {
+        public static <T> void quicksort(List<T> list, int low, int high, Comparator<T> comparator) {
+            if (low < high) {
+
+                int pivotIndex = partition(list, low, high, comparator);
+
+                quicksort(list, low, pivotIndex - 1, comparator);
+
+                quicksort(list, pivotIndex + 1, high, comparator);
+            }
+        }
+
+        private static <T> int partition(List<T> list, int low, int high, Comparator<T> comparator) {
+            T pivot = list.get(high);
+            int i = low - 1;
+
+            for (int j = low; j < high; j++) {
+                if (comparator.compare(list.get(j), pivot) <= 0) {
+                    i++;
+                    // Byt elementerne
+                    swap(list, i, j);
+                }
+            }
+
+            swap(list, i + 1, high);
+            return i + 1;
+        }
+
+        private static <T> void swap(List<T> list, int i, int j) {
+            T temp = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, temp);
+        }
+    }
+
+    public static void sortInventory(){
+
+    }
+
 
     public double calcTotalWeight(){
         double totalWeight = 0;
