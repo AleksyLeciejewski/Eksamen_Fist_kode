@@ -28,6 +28,7 @@ public class InventoryFrame extends JFrame {
         shopkeeperButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
                 new ShopkeeperFrame();
             }
         });
@@ -62,8 +63,8 @@ public class InventoryFrame extends JFrame {
 
     private void removeItemBySlot() {
         try {
-            int accountNumber = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
-            inventory.removeItemBySlot(accountNumber);
+            int slot = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
+            inventory.removeItemBySlot(slot);
             JOptionPane.showMessageDialog(null, "Item has been deleted!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot number.");

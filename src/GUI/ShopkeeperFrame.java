@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 
 public class ShopkeeperFrame extends JFrame {
@@ -30,6 +28,7 @@ public class ShopkeeperFrame extends JFrame {
         inventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
                 new InventoryFrame();
             }
         });
