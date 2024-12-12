@@ -214,9 +214,23 @@ public class Inventory {
         }
     }
 
-    public static void sortInventory(){
+    public static void sortInventory(int choice){
+        switch (choice) {
+            case 1: inventoryList.sort(Comparator.comparing(Item::getName));
+                break;
 
-    }
+            case 2: inventoryList.sort(Comparator.comparingDouble(Item::getWeight));
+                break;
+
+            case 3: inventoryList.sort(Comparator.comparingDouble(Item::getPrice));
+                break;
+
+            case 4: inventoryList.sort(Comparator.comparing(Item::getItemType));
+                break;
+                
+            default: break;
+        }
+        }
 
 
     public double calcTotalWeight(){

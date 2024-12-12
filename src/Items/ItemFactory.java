@@ -1,4 +1,5 @@
 package Items;
+import Items.ItemType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,14 +4,17 @@ import java.util.Scanner;
 
 public abstract class Item {
 
-  public Item(String name,int itemID,double weight,boolean isStackable,int maxStack){
+  public Item(String name,int itemID,double weight,boolean isStackable,int maxStack, double price, String ItemType){
     this.itemID = itemID;
     this.isStackable = isStackable;
     this.name = name;
     this.weight = weight;
     this.maxStack = maxStack;
+    this.price = price;
+    this.ItemType = ItemType;
   }
-
+  private String ItemType;
+  private double price;
   private int itemID;
   private String name;
   private double weight;
@@ -72,7 +75,18 @@ public abstract class Item {
                 name, maxStack, weight, isStackable);
     }
 
+    public double getPrice() {
+        return price;
     }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getItemType() {
+        return ItemType;
+    }
+}
 
 
 
