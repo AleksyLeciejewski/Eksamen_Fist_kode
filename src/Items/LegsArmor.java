@@ -1,6 +1,6 @@
 package Items;
 
-public class LegsArmor extends Item implements WeaponType {
+public class LegsArmor extends Item implements ItemType {
     public String name;
 
 
@@ -9,7 +9,7 @@ public class LegsArmor extends Item implements WeaponType {
     }
 
     @Override
-    public String getWeaponType(){
+    public String getItemType(){
         return "LegsArmor";
     }
 }

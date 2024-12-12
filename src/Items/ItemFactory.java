@@ -9,8 +9,8 @@ public class ItemFactory {
 
 
     static {
-        items.add(new OneHandWeapon(1, "Sword", 8, 1, false, 0));
-        items.add(new TwoHandsWeapon(2, "Greatsword", 12, 2, false, 0));
+        items.add(new OneHandItem(1, "Sword", 8, 1, false, 0));
+        items.add(new TwoHandsItem(2, "Greatsword", 12, 2, false, 0));
         items.add(new Consumable("Potion", 3, 0.5, true, 10, "Heal", 30));
         items.add(new Consumable("Elixir", 4, 0.3, true, 5, "Mana", 20));
         items.add(new ChestArmor(5, "Platemail", 15, 1, false, 0));

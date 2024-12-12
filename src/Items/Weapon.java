@@ -52,5 +52,5 @@ public class Weapon extends Item implements Reforge {
 
             //case 3:
         }
-    }W
+    }
 }
