@@ -14,7 +14,9 @@ public class ShopkeeperFrame extends JFrame {
     JButton inventoryButton = new JButton("Inventory");
     JButton sellItemButton = new JButton("Sell Item");
     JButton buyItemButton = new JButton("Buy Item");
-    
+
+    Inventory inventoryList;
+
     public ShopkeeperFrame() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.gray);
@@ -65,14 +67,15 @@ public class ShopkeeperFrame extends JFrame {
 
     private void buyItem() {
         Item randomItem = ItemFactory.getRandomItem(); // Get a random item
-        Inventory.addItem(randomItem);
+        inventoryList.addItem(randomItem);
         System.out.println("Random item added to inventory: " + randomItem.getName());
+
     }
 
     private void removeItemBySlot() {
         try {
             int slot = Integer.parseInt(JOptionPane.showInputDialog("Slot number to be deleted:"));
-            Inventory.removeItemBySlot(slot);
+            inventoryList.removeItemBySlot(slot);
             JOptionPane.showMessageDialog(null, "Item has been deleted!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot.");
