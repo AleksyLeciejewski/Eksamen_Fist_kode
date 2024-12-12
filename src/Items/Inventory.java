@@ -17,7 +17,7 @@ public class Inventory {
     private int availableSlots;
     private int maxSlots = 32;
     private double totalWeight;
-    private ArrayList<Item> inventoryList;
+    private static ArrayList<Item> inventoryList;
 
     public Inventory(int maxSlots, double totalWeight){
     this.maxSlots = maxSlots;
@@ -26,8 +26,8 @@ public class Inventory {
     }
 
 //addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
-    public void addItem(Item item) {
-        String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
+    public static void addItem(Item item) {
+        String sql = "INSERT INTO inventorylist (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -49,7 +49,7 @@ public class Inventory {
     }
     public void addWeapon(Weapon weapon) {
         addItem(weapon);
-        String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO weapons (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -72,7 +72,7 @@ public class Inventory {
 
     public void addArmor(Armor armor) {
         addItem(armor);
-        String sql = "INSERT INTO  (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO armor (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -95,7 +95,7 @@ public class Inventory {
 
     public void addConsumable(Consumable consumable) throws SQLException {
         addItem(consumable);
-        String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO consumable (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -116,7 +116,7 @@ public class Inventory {
         }
     }
 
-    public void removeItemBySlot(int slot) {
+    public static void removeItemBySlot(int slot) {
 
         if (slot < 1 || slot > inventoryList.size()) {
             System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
