@@ -43,6 +43,13 @@ public class Inventory {
             // Håndterer SQL-relaterede fejl.
             e.printStackTrace();
         }
+
+        if(availableSlots < 1){
+
+
+        }
+
+
     }
     public void addWeapon(Weapon weapon) {
         addItem(weapon);
