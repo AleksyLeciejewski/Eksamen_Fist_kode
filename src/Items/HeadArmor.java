@@ -1,6 +1,6 @@
 package Items;
 
-public class HeadArmor extends Item implements WeaponType {
+public class HeadArmor extends Item implements ItemType {
     public String name;
 
     public HeadArmor(int itemID, String name, double weight, int maxStack, boolean isStackable, double defense){
@@ -8,7 +8,7 @@ public class HeadArmor extends Item implements WeaponType {
     }
 
     @Override
-    public String getWeaponType(){
+    public String getItemType(){
         return "Head Armor";
     }
 }
