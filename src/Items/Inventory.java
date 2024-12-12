@@ -15,7 +15,7 @@ public class Inventory {
     private int availableSlots;
     private int maxSlots = 32;
     private double totalWeight;
-    private ArrayList<Item> inventoryList;
+    private static ArrayList<Item> inventoryList;
 
     public Inventory(int maxSlots, double totalWeight){
     this.maxSlots = maxSlots;
@@ -24,7 +24,7 @@ public class Inventory {
     }
 
 //addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
-    public void addItem(Item item) {
+    public static void addItem(Item item) {
         String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -115,7 +115,7 @@ public class Inventory {
         }
     }
 
-    public void removeItemBySlot(int slot) {
+    public static void removeItemBySlot(int slot) {
         Logger logger = Logger.getLogger("Inventory logger");
 
         if (slot < 1 || slot > inventoryList.size()) {
