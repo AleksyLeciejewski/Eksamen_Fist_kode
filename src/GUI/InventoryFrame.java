@@ -64,11 +64,11 @@ public class InventoryFrame extends JFrame {
 
     private void removeItem() {
         try {
-            int slot = Integer.parseInt(JOptionPane.showInputDialog("Account Number to be deleted:"));
+            int slot = Integer.parseInt(JOptionPane.showInputDialog("Slot to be deleted:"));
             Inventory.removeItemBySlot(slot);
-            JOptionPane.showMessageDialog(null, "Account has been deleted!");
+            JOptionPane.showMessageDialog(null, "Item has been deleted!");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid account number.");
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot.");
         }
     }
 }

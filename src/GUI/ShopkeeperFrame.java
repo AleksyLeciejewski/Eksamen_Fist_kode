@@ -75,7 +75,7 @@ public class ShopkeeperFrame extends JFrame {
             Inventory.removeItemBySlot(slot);
             JOptionPane.showMessageDialog(null, "Item has been deleted!");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot number.");
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid slot.");
         }
     }
 }
