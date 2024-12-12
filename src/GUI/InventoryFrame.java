@@ -37,7 +37,6 @@ public class InventoryFrame extends JFrame {
                 removeItemBySlot();
             }
 
-
         });
 
         addSlotButton.setBounds(650, 25, 100, 50);
