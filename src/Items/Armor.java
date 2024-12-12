@@ -41,7 +41,7 @@ public class Armor extends Item implements Reforge {
                 break;
 
                 case 2:
-                    System.out.println("You have chosen to reforge the wieght of your armor");
+                    System.out.println("You have chosen to reforge the weight of your armor");
                     System.out.println("This transaction will cost you XX gold. Do you want to continue?"); //Lod vær' med at implementere brugerinput prompts for at det kan implementeres i gui
 
                 double newWeight = getWeight() + reforgeSetter.nextDouble() * 15 + 3; //Påsætter en begrænsning for værdierne.

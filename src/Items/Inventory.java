@@ -40,7 +40,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny item er nu tilføjet til dit inventory!");
+                System.out.println("A new item has been added to your inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -62,7 +62,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Et nyt våben er nu tilføjet til dit inventory!");
+                System.out.println("A new weapon has been added to your inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -85,7 +85,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny rustning er nu tilføjet til dit inventory!");
+                System.out.println("A new armor piece has been added to your inventory!");
             }
         } catch (SQLException e) {
             // Håndterer SQL-relaterede fejl.
@@ -109,7 +109,7 @@ public class Inventory {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("En ny consumable er nu tilføjet til dit inventory!");
+                System.out.println("A new consumable has been added to your inventory!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,13 +119,13 @@ public class Inventory {
     public static void removeItemBySlot(int slot) {
 
         if (slot < 1 || slot > inventoryList.size()) {
-            System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
+            System.out.println("Invalid slot number.");
             return;
         }
 
         Item itemToRemove = inventoryList.get(slot - 1);
         if (itemToRemove == null) {
-            System.out.println("Slot er tomt. Ingen genstand at fjerne.");
+            System.out.println("Slot is empty.");
             return;
         }
 
@@ -139,20 +139,20 @@ public class Inventory {
 
             if (rowsAffected > 0) {
 
-                System.out.printf("Genstanden '%s' er blevet slettet fra slot %d.%n",
+                System.out.printf("The item '%s' has been removed from slot %d.%n",
                         itemToRemove.getName(), slot);
 
 
                 inventoryList.remove(slot - 1);
             } else {
 
-                System.out.printf("Kunne ikke finde genstanden '%s' i databasen.%n",
+                System.out.printf("Could not remove the item '%s' in the database.%n",
                         itemToRemove.getName());
             }
 
         } catch (SQLException e) {
 
-            System.err.printf("Fejl ved sletning af slot %d: %s%n", slot, e.getMessage());
+            System.err.printf("Error removing item from slot %d: %s%n", slot, e.getMessage());
         }
     }
 
@@ -175,7 +175,7 @@ public class Inventory {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Fejl ved visning af inventory");
+            System.err.println("Error showing inventory: " + e.getMessage());
         }
     }
 
@@ -253,20 +253,20 @@ public class Inventory {
 
     public int addSlots(){
 
-        System.out.println("Du har nu valgt at tilføje items til dit inventory");
-        System.out.println("Angiv, hvor mange slots du vil tilføje: ");
+        System.out.println("You have chosen to add slots to your inventory");
+        System.out.println("How many slots would you like to add: ");
 
     int moreSlots = brugerInput.nextInt();
 
         if(moreSlots <= 0){
-            System.out.println("Du kan ikke tilføje 0 slots");
+            System.out.println("You cannot add 0 slots");
         return maxSlots;
         }
 
     this.maxSlots += moreSlots;
 
-        System.out.println("Du har nu udvidet din inventory med " + moreSlots + "pladser");
-        System.out.println("Din nye kapacitet er nu opgraderet til: " + maxSlots + "!");
+        System.out.println("You have now expanded your inventory by " + moreSlots + "slots");
+        System.out.println("Your new capacity is now: " + maxSlots + "!");
 
     return maxSlots;
     }
