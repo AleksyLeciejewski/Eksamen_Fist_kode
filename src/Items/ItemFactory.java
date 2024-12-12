@@ -25,5 +25,3 @@ public class ItemFactory {
         return items.get(random.nextInt(items.size()));
     }
 }
-
- */
