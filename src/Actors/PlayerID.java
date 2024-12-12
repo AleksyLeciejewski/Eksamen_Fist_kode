@@ -36,9 +36,9 @@ public class PlayerID {
 
     public void addExp(int exp){
         if (exp > 0) {
-            System.out.println(" Spilleren har fået " + exp + " XP");
+            System.out.println("Player has received " + exp + " XP");
         }else {
-            System.out.println("Xp skal vær positivt");
+            System.out.println("XP cannot be negative");
         }
 
         }
