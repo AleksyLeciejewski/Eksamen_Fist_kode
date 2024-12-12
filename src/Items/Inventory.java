@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.Comparator;
+
+
 
 public class Inventory {
     Scanner brugerInput = new Scanner(System.in);
@@ -23,9 +25,9 @@ public class Inventory {
     this.inventoryList = new ArrayList<>();
     }
 
-//addItem skal opdeles i addWeapon, addArmor, addConsumable osv. Hver metode skal referere til sin respektive tabel.
+//addItem skal kaldes ved hver add item. Hver metode skal referere til sin respektive tabel.
     public static void addItem(Item item) {
-        String sql = "INSERT INTO  (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO inventorylist (name, MaxStack, currentDrinks) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -47,7 +49,7 @@ public class Inventory {
     }
     public void addWeapon(Weapon weapon) {
         addItem(weapon);
-        String sql = "INSERT INTO  (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO weapons (name, MaxStack, weight, damage) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -70,7 +72,7 @@ public class Inventory {
 
     public void addArmor(Armor armor) {
         addItem(armor);
-        String sql = "INSERT INTO  (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO armor (name, MaxStack, weight, defense) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -93,7 +95,7 @@ public class Inventory {
 
     public void addConsumable(Consumable consumable) throws SQLException {
         addItem(consumable);
-        String sql = "INSERT INTO  (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO consumable (name, MaxStack, weight, duration, effect) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -110,13 +112,11 @@ public class Inventory {
                 System.out.println("En ny consumable er nu tilføjet til dit inventory!");
             }
         } catch (SQLException e) {
-            // Håndterer SQL-relaterede fejl.
             e.printStackTrace();
         }
     }
 
     public static void removeItemBySlot(int slot) {
-        Logger logger = Logger.getLogger("Inventory logger");
 
         if (slot < 1 || slot > inventoryList.size()) {
             System.out.println("Slotnummeret er uden for rækkevidde. Prøv igen.");
@@ -124,11 +124,11 @@ public class Inventory {
         }
 
         Item itemToRemove = inventoryList.get(slot - 1);
-
         if (itemToRemove == null) {
             System.out.println("Slot er tomt. Ingen genstand at fjerne.");
             return;
         }
+
         String sql = "DELETE FROM Inventory WHERE itemID = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -138,24 +138,21 @@ public class Inventory {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.printf("Genstanden(e) er blevet slettet",
-                        itemToRemove.getName(), slot);
 
-                logger.log(Level.INFO, "Genstand slettet fra slot {0}: {1}", new Object[]{slot, itemToRemove.getName()});
+                System.out.printf("Genstanden '%s' er blevet slettet fra slot %d.%n",
+                        itemToRemove.getName(), slot);
 
 
                 inventoryList.remove(slot - 1);
             } else {
+
                 System.out.printf("Kunne ikke finde genstanden '%s' i databasen.%n",
                         itemToRemove.getName());
-                logger.log(Level.WARNING, "Ingen genstand fundet i databasen for slot {0}: {1}",
-                        new Object[]{slot, itemToRemove.getName()});
             }
 
         } catch (SQLException e) {
-            System.err.println("Fejl ved sletning af genstand fra slot " + slot);
-            logger.log(Level.SEVERE, "Databasefejl ved sletning af genstand fra slot {0}: {1}",
-                    new Object[]{slot, e});
+
+            System.err.printf("Fejl ved sletning af slot %d: %s%n", slot, e.getMessage());
         }
     }
 
@@ -181,6 +178,46 @@ public class Inventory {
             System.err.println("Fejl ved visning af inventory");
         }
     }
+
+    public class Quicksort {
+        public static <T> void quicksort(List<T> list, int low, int high, Comparator<T> comparator) {
+            if (low < high) {
+
+                int pivotIndex = partition(list, low, high, comparator);
+
+                quicksort(list, low, pivotIndex - 1, comparator);
+
+                quicksort(list, pivotIndex + 1, high, comparator);
+            }
+        }
+
+        private static <T> int partition(List<T> list, int low, int high, Comparator<T> comparator) {
+            T pivot = list.get(high);
+            int i = low - 1;
+
+            for (int j = low; j < high; j++) {
+                if (comparator.compare(list.get(j), pivot) <= 0) {
+                    i++;
+                    // Byt elementerne
+                    swap(list, i, j);
+                }
+            }
+
+            swap(list, i + 1, high);
+            return i + 1;
+        }
+
+        private static <T> void swap(List<T> list, int i, int j) {
+            T temp = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, temp);
+        }
+    }
+
+    public static void sortInventory(){
+
+    }
+
 
     public double calcTotalWeight(){
         double totalWeight = 0;
