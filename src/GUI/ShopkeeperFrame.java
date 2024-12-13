@@ -56,9 +56,10 @@ public class ShopkeeperFrame extends JFrame {
         this.setLayout(null);
         this.add(buttonPanel);
 
-        ImageIcon icon = new ImageIcon("src/logo.jpg");
+        ImageIcon icon = new ImageIcon("src/GUI/logoNoBG.png");
         this.setIconImage(icon.getImage());
         this.getContentPane().setBackground(Color.lightGray);
+        this.setLocationRelativeTo(null); // Center the frame
         this.setVisible(true);
 
     }

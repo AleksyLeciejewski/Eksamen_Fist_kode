@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +9,7 @@ public class LoginFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
+    private JLabel messageLabel;
 
     public LoginFrame() {
         super("Login");
@@ -15,11 +17,14 @@ public class LoginFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-//        // Add logo
-//        ImageIcon icon = new ImageIcon("src/GUI/logo.jpg");
-//        JLabel logoLabel = new JLabel(icon);
-//        logoLabel.setBounds(100, 10, 100, 100);
-//        add(logoLabel);
+        // Add logo
+        ImageIcon icon = new ImageIcon("src/GUI/logoNoBG.png");
+        Image image = icon.getImage();
+        Image scaledImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel logoLabel = new JLabel(scaledIcon);
+        logoLabel.setBounds(50, 10, 200, 100);
+        add(logoLabel);
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setBounds(10, 120, 80, 25);
@@ -44,20 +49,25 @@ public class LoginFrame extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LoginManager LoginManager = new LoginManager();
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
                 // login logic here
-                if (username.equals("admin") && password.equals("admin")) {
-                    JOptionPane.showMessageDialog(null, "Login successful");
+                if (LoginManager.authenticate(username, password)) {
+                    JOptionPane.showMessageDialog(null, "Login successful!");
                     setVisible(false);
                     new InventoryFrame();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid username or password");
+                    JOptionPane.showMessageDialog(null, "Invalid credentials.");
                 }
             }
         });
 
         setLocationRelativeTo(null); // Center the frame
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new LoginFrame();
     }
 }

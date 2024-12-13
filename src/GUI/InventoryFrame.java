@@ -48,8 +48,9 @@ public class InventoryFrame extends JFrame {
         this.setResizable(false);
         this.setLayout(null);
         this.add(buttonPanel);
+        this.setLocationRelativeTo(null); // Center the frame
 
-        ImageIcon icon = new ImageIcon("src/logo.jpg");
+        ImageIcon icon = new ImageIcon("src/GUI/logoNoBG.png");
         this.setIconImage(icon.getImage());
         this.getContentPane().setBackground(Color.lightGray);
         this.setVisible(true);
