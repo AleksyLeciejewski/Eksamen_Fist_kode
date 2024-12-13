@@ -1,4 +1,5 @@
 package Items;
+import Items.ItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,4 +26,3 @@ public class ItemFactory {
         return items.get(random.nextInt(items.size()));
     }
 }
-
